@@ -147,16 +147,23 @@ propre vhost, sa propre unité systemd et `/var/www/versa-capital`.
 VPS_SSH_USER=<utilisateur> ./deploy/deploy.sh
 ```
 
-Le script construit l'application, envoie la sortie `standalone`, installe
-`deploy/versa-capital.service` (Node sur `127.0.0.1:43127`) et
-`deploy/nginx-versa.conf` (proxy inverse), puis recharge nginx seulement si
-`nginx -t` passe. Si nginx refuse le vhost, celui-ci est retiré et le serveur
-reste sur sa configuration précédente. Une fois certbot passé, le script ne
-réécrit plus le vhost, pour ne pas effacer le bloc TLS.
+Le script vérifie d'abord la connexion, le `sudo` sans mot de passe et la
+version de Node (Next 16 exige Node 20.9+, sinon Node 22 est installé via
+NodeSource). Il construit ensuite l'application, envoie la sortie `standalone`
+par tar sur ssh, installe `deploy/versa-capital.service` (Node sur
+`127.0.0.1:43127`, sous `www-data`) et `deploy/nginx-versa.conf` (proxy
+inverse), puis recharge nginx seulement si `nginx -t` passe. Le chemin réel de
+Node est injecté dans l'unité à la place de `__NODE_BIN__`.
 
-Variables reconnues : `VPS_SSH_USER` (obligatoire, doit avoir sudo),
-`VPS_HOST` (défaut `158.69.1.173`), `VPS_SSH_KEY` (clé privée, sinon l'agent
-SSH), `SKIP_BUILD=1` (réutiliser un build existant).
+Garde-fous : si nginx refuse le vhost, celui-ci est retiré et le serveur reste
+sur sa configuration précédente ; une fois certbot passé, le script ne réécrit
+plus le vhost, pour ne pas effacer le bloc TLS ; si l'application ne répond
+pas, le script échoue en affichant le journal au lieu de se déclarer réussi.
+
+Variables reconnues : `VPS_SSH_USER` (obligatoire, doit avoir sudo sans mot de
+passe), `VPS_HOST` (défaut `158.69.1.173`), `VPS_SSH_KEY` (clé privée),
+`VPS_SSH_PASSWORD` (à défaut de clé, nécessite `sshpass`), `SKIP_BUILD=1`
+(réutiliser un build existant).
 
 Pour un agent Cloud, les identifiants se déposent dans Cursor Dashboard →
 Cloud Agents → Secrets (`VPS_SSH_USER`, `VPS_SSH_KEY`) ; ils ne sont pas
