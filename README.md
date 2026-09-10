@@ -147,23 +147,46 @@ propre vhost, sa propre unité systemd et `/var/www/versa-capital`.
 VPS_SSH_USER=<utilisateur> ./deploy/deploy.sh
 ```
 
-Le script vérifie d'abord la connexion, le `sudo` sans mot de passe et la
-version de Node (Next 16 exige Node 20.9+, sinon Node 22 est installé via
-NodeSource). Il construit ensuite l'application, envoie la sortie `standalone`
-par tar sur ssh, installe `deploy/versa-capital.service` (Node sur
-`127.0.0.1:43127`, sous `www-data`) et `deploy/nginx-versa.conf` (proxy
-inverse), puis recharge nginx seulement si `nginx -t` passe. Le chemin réel de
-Node est injecté dans l'unité à la place de `__NODE_BIN__`.
+Le déploiement est en deux morceaux :
 
-Garde-fous : si nginx refuse le vhost, celui-ci est retiré et le serveur reste
-sur sa configuration précédente ; une fois certbot passé, le script ne réécrit
-plus le vhost, pour ne pas effacer le bloc TLS ; si l'application ne répond
-pas, le script échoue en affichant le journal au lieu de se déclarer réussi.
+- `deploy/deploy.sh` tourne sur votre machine : il vérifie la connexion,
+  détermine comment passer en root, construit l'application, empaquette la
+  sortie `standalone` et l'envoie.
+- `deploy/remote-install.sh` tourne sur le VPS, en root. Tout le travail
+  privilégié est là, élevé **une seule fois**, pour qu'un compte dont le
+  `sudo` demande un mot de passe fonctionne aussi.
 
-Variables reconnues : `VPS_SSH_USER` (obligatoire, doit avoir sudo sans mot de
-passe), `VPS_HOST` (défaut `158.69.1.173`), `VPS_SSH_KEY` (clé privée),
-`VPS_SSH_PASSWORD` (à défaut de clé, nécessite `sshpass`), `SKIP_BUILD=1`
-(réutiliser un build existant).
+Côté serveur : vérification de Node (Next 16 exige Node 20.9+, sinon Node 22
+est installé via NodeSource, et le chemin réel est injecté dans l'unité à la
+place de `__NODE_BIN__`), déballage dans `/var/www/versa-capital`, service sous
+`www-data` sur `127.0.0.1:43127`, vhost nginx, puis rechargement seulement si
+`nginx -t` passe.
+
+Garde-fous :
+
+- si nginx refuse le vhost, celui-ci est retiré et le serveur reste sur sa
+  configuration précédente, pour ne pas casser les autres sites de la machine ;
+- une fois certbot passé, le vhost n'est plus réécrit, pour ne pas effacer le
+  bloc TLS ;
+- le contrôle de santé exige le `BUILD_ID` du build qui vient d'être déployé,
+  et pas seulement un `200`. Sans ça, un ancien processus encore accroché au
+  port ferait passer le déploiement pour réussi tout en servant l'ancien code ;
+- en cas d'échec, le script affiche `systemctl status`, le journal et le
+  détenteur du port, au lieu de se déclarer réussi.
+
+En dernier recours, `remote-install.sh` s'exécute à la main :
+
+```bash
+scp deploy/remote-install.sh deploy/versa-capital.service \
+    deploy/nginx-versa.conf versa-release.tar.gz <utilisateur>@158.69.1.173:/tmp/
+ssh <utilisateur>@158.69.1.173 "sudo bash /tmp/remote-install.sh"
+```
+
+Variables reconnues : `VPS_SSH_USER` (obligatoire), `VPS_HOST` (défaut
+`158.69.1.173`), `VPS_SSH_KEY` (clé privée), `VPS_SSH_PASSWORD` (à défaut de
+clé, nécessite `sshpass`), `VPS_SUDO_PASSWORD` (si le `sudo` distant demande un
+mot de passe), `SKIP_BUILD=1` (réutiliser un build existant), `DEBUG=1` (tracer
+chaque commande).
 
 Pour un agent Cloud, les identifiants se déposent dans Cursor Dashboard →
 Cloud Agents → Secrets (`VPS_SSH_USER`, `VPS_SSH_KEY`) ; ils ne sont pas
