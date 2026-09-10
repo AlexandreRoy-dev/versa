@@ -46,7 +46,7 @@ export function Header({ dict }: { dict: Dictionary }) {
       <div className="container-vc flex h-18 items-center justify-between gap-6 md:h-20">
         <Logo locale={locale} tone="light" height={30} />
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden shrink-0 items-center gap-1 lg:flex">
           {nav.map((item) => {
             const active = pathname === item.href;
             return (
@@ -54,7 +54,7 @@ export function Header({ dict }: { dict: Dictionary }) {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-300 ease-brand",
+                  "relative rounded-full px-3.5 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-300 ease-brand",
                   active
                     ? "text-white"
                     : "text-white/70 hover:text-white",
@@ -72,7 +72,7 @@ export function Header({ dict }: { dict: Dictionary }) {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <Link
             href={switchLocalePath(pathname, otherLocale)}
             aria-label={dict.nav.switchLabel}
@@ -83,7 +83,7 @@ export function Header({ dict }: { dict: Dictionary }) {
 
           <a
             href={contact.phoneHref}
-            className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-white/85 transition-colors duration-300 ease-brand hover:text-white xl:flex"
+            className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm font-medium whitespace-nowrap text-white/85 transition-colors duration-300 ease-brand hover:text-white xl:flex"
           >
             <Phone className="size-3.5" aria-hidden />
             {dict.nav.callUs}
@@ -91,7 +91,7 @@ export function Header({ dict }: { dict: Dictionary }) {
 
           <Button
             asChild
-            className="hidden bg-brand-500 text-navy-950 hover:bg-brand-400 sm:inline-flex"
+            className="hidden whitespace-nowrap bg-brand-500 text-navy-950 hover:bg-brand-400 sm:inline-flex"
           >
             <Link href={routes.contact(locale)}>{dict.hero.primaryCta}</Link>
           </Button>

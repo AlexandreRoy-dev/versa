@@ -10,9 +10,9 @@ export const fr: Dictionary = {
   nav: {
     home: "Accueil",
     solutions: "Solutions",
-    equipment: "Équipements financés",
+    equipment: "Équipements",
     about: "Le cabinet",
-    faq: "Questions fréquentes",
+    faq: "FAQ",
     contact: "Contact",
     callUs: "1-833-508-3772",
     apply: "Demande de financement",
