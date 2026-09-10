@@ -1,0 +1,26 @@
+[Unit]
+Description=Versa Capital refresh prototype (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/versa-capital
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+Environment=PORT=43127
+Environment=HOSTNAME=127.0.0.1
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=versa-capital
+
+# The app serves static marketing pages and one stateless form endpoint, so it
+# needs no write access anywhere on disk.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
