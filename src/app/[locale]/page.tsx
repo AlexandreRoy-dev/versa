@@ -20,7 +20,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     <>
       <Hero dict={dict} />
 
-      <Section tone="white">
+      <Section tone="white" id="pourquoi">
         <Why dict={dict} />
       </Section>
 

@@ -104,9 +104,14 @@ export function Hero({ dict }: { dict: Dictionary }) {
         </div>
       </div>
 
-      <div className="container-vc relative flex items-center gap-2 py-5 text-xs tracking-[0.16em] text-white/30 uppercase">
-        <MoveDown className="size-3.5" aria-hidden />
-        {dict.hero.scrollHint}
+      <div className="container-vc relative py-5">
+        <a
+          href="#pourquoi"
+          className="hover:text-brand-300 inline-flex items-center gap-2 text-xs tracking-[0.16em] text-white/30 uppercase transition-colors duration-300 ease-brand"
+        >
+          <MoveDown className="size-3.5" aria-hidden />
+          {dict.hero.scrollHint}
+        </a>
       </div>
     </section>
   );
