@@ -150,7 +150,17 @@ VPS_SSH_USER=<utilisateur> ./deploy/deploy.sh
 Le script construit l'application, envoie la sortie `standalone`, installe
 `deploy/versa-capital.service` (Node sur `127.0.0.1:43127`) et
 `deploy/nginx-versa.conf` (proxy inverse), puis recharge nginx seulement si
-`nginx -t` passe.
+`nginx -t` passe. Si nginx refuse le vhost, celui-ci est retiré et le serveur
+reste sur sa configuration précédente. Une fois certbot passé, le script ne
+réécrit plus le vhost, pour ne pas effacer le bloc TLS.
+
+Variables reconnues : `VPS_SSH_USER` (obligatoire, doit avoir sudo),
+`VPS_HOST` (défaut `158.69.1.173`), `VPS_SSH_KEY` (clé privée, sinon l'agent
+SSH), `SKIP_BUILD=1` (réutiliser un build existant).
+
+Pour un agent Cloud, les identifiants se déposent dans Cursor Dashboard →
+Cloud Agents → Secrets (`VPS_SSH_USER`, `VPS_SSH_KEY`) ; ils ne sont pas
+présents dans l'environnement par défaut.
 
 Le certificat TLS s'obtient ensuite avec certbot :
 
