@@ -14,6 +14,10 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T | null>(null);
 
   useEffect(() => {
+    // Tells the inline bootstrap script that the entrance system is live, so
+    // it stands down instead of force-revealing the page.
+    document.documentElement.classList.add("reveal-ready");
+
     const node = ref.current;
     if (!node) return;
 

@@ -72,13 +72,18 @@ export default async function LocaleLayout({
     >
       <head>
         {/*
-          Marks the document as scripted before first paint. The entrance
-          styles are scoped to .js so that if the bundle never arrives the
-          content stays visible instead of stranding at opacity 0.
+          Marks the document as scripted before first paint so entrances can
+          start hidden without a flash of unstyled content.
+
+          The timer is the safety net: entrance styles are scoped to .js, so
+          if hydration never happens the page would sit at opacity 0 forever.
+          useReveal sets reveal-ready as soon as it mounts; if that has not
+          happened shortly after load, we drop .js and the content simply
+          appears unanimated.
         */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add('js')`,
+            __html: `(function(){var d=document.documentElement;d.classList.add('js');setTimeout(function(){if(!d.classList.contains('reveal-ready')){d.classList.remove('js')}},2500)})()`,
           }}
         />
       </head>
