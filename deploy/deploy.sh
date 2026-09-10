@@ -72,16 +72,29 @@ ssh "${SSH_OPTS[@]}" "${TARGET}" bash -s <<REMOTE
 set -euo pipefail
 
 sudo mv /tmp/versa-capital.service /etc/systemd/system/versa-capital.service
-sudo mv /tmp/nginx-versa.conf /etc/nginx/sites-available/${DOMAIN}
-sudo ln -sfn /etc/nginx/sites-available/${DOMAIN} /etc/nginx/sites-enabled/${DOMAIN}
 
 sudo systemctl daemon-reload
 sudo systemctl enable --now versa-capital
 sudo systemctl restart versa-capital
 
-# Only reload nginx if the whole config still parses, so a mistake here cannot
-# take down the other sites already on this box.
-sudo nginx -t
+# certbot rewrites the vhost in place to add TLS, so once it has run, don't
+# clobber its work on a redeploy.
+if sudo grep -q "listen 443" /etc/nginx/sites-available/${DOMAIN} 2>/dev/null; then
+  echo "vhost already has TLS, leaving it alone"
+  sudo rm -f /tmp/nginx-versa.conf
+else
+  sudo mv /tmp/nginx-versa.conf /etc/nginx/sites-available/${DOMAIN}
+  sudo ln -sfn /etc/nginx/sites-available/${DOMAIN} /etc/nginx/sites-enabled/${DOMAIN}
+fi
+
+# This box already serves other sites. If our vhost does not parse, pull it
+# back out and leave nginx running on the config it had.
+if ! sudo nginx -t; then
+  echo "nginx rejected the new vhost, rolling it back" >&2
+  sudo rm -f /etc/nginx/sites-enabled/${DOMAIN}
+  sudo nginx -t
+  exit 1
+fi
 sudo systemctl reload nginx
 
 echo "--- service status ---"
@@ -89,15 +102,24 @@ sudo systemctl is-active versa-capital
 REMOTE
 
 echo "==> Waiting for the app to answer"
-for attempt in 1 2 3 4 5 6 7 8 9 10; do
-  code="\$(ssh "${SSH_OPTS[@]}" "${TARGET}" "curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:${APP_PORT}/fr" || true)"
-  if [[ "\${code}" == "200" ]]; then
+healthy=0
+for attempt in $(seq 1 10); do
+  code="$(ssh "${SSH_OPTS[@]}" "${TARGET}" \
+    "curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:${APP_PORT}/fr" || true)"
+  if [[ "${code}" == "200" ]]; then
     echo "    app responding locally on ${APP_PORT}"
+    healthy=1
     break
   fi
-  echo "    attempt \${attempt}: got '\${code}', retrying"
+  echo "    attempt ${attempt}: got '${code:-no response}', retrying"
   sleep 3
 done
+
+if [[ "${healthy}" != "1" ]]; then
+  echo "error: app never returned 200 on ${APP_PORT}. Recent logs:" >&2
+  ssh "${SSH_OPTS[@]}" "${TARGET}" "sudo journalctl -u versa-capital -n 40 --no-pager" >&2 || true
+  exit 1
+fi
 
 echo
 echo "==> Deployed. Next step, once you are happy with HTTP:"
