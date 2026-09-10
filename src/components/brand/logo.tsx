@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { Locale } from "@/content";
+import { asset } from "@/lib/asset";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -33,11 +34,11 @@ export function Logo({
       aria-label="Versa Capital"
     >
       <Image
-        src={
+        src={asset(
           tone === "light"
             ? "/brand/versa-logo-light.png"
-            : "/brand/versa-logo-dark.png"
-        }
+            : "/brand/versa-logo-dark.png",
+        )}
         alt="Versa Capital"
         width={Math.round(height * ASPECT)}
         height={height}

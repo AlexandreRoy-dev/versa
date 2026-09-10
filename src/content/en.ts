@@ -396,6 +396,8 @@ export const en: Dictionary = {
     successBody:
       "Thank you. A broker will call you back within 24 hours. If your file is urgent, call us directly at 1-833-508-3772.",
     successAgain: "Send another request",
+    demoBody:
+      "Form validated. This demo version does not send the request yet: the form will be wired to the inbox or CRM you choose. To reach a broker now, call 1-833-508-3772.",
     errorTitle: "Submission failed",
     errorBody:
       "Something went wrong. Please try again, or call us at 1-833-508-3772.",

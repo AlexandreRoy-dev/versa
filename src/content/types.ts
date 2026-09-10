@@ -170,6 +170,8 @@ export type Dictionary = {
     successTitle: string;
     successBody: string;
     successAgain: string;
+    /* Shown instead of successBody on the static demo build, which has no API. */
+    demoBody: string;
     errorTitle: string;
     errorBody: string;
     required: string;

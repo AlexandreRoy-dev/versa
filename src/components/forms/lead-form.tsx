@@ -17,12 +17,15 @@ import { Textarea } from "@/components/ui/textarea";
 import type { Dictionary } from "@/content";
 import { cn } from "@/lib/utils";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "submitting" | "success" | "demo" | "error";
 type FieldErrors = Partial<
   Record<"name" | "email" | "phone", string | undefined>
 >;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+/* Set by next.config.ts on the static export, which has no API route. */
+const IS_STATIC_DEMO = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 
 export function LeadForm({
   dict,
@@ -61,6 +64,16 @@ export function LeadForm({
 
     setStatus("submitting");
 
+    // The GitHub Pages build has no API route to post to, so stop at
+    // validation rather than firing a request that would 404.
+    if (IS_STATIC_DEMO) {
+      setStatus("demo");
+      form.reset();
+      setAmount("");
+      setService("");
+      return;
+    }
+
     try {
       const response = await fetch("/api/leads", {
         method: "POST",
@@ -88,7 +101,7 @@ export function LeadForm({
     }
   }
 
-  if (status === "success") {
+  if (status === "success" || status === "demo") {
     return (
       <div
         className={cn(
@@ -115,7 +128,7 @@ export function LeadForm({
             isDark ? "text-white/60" : "text-muted-foreground",
           )}
         >
-          {t.successBody}
+          {status === "demo" ? t.demoBody : t.successBody}
         </p>
         <Button
           variant="outline"

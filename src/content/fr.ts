@@ -404,6 +404,8 @@ export const fr: Dictionary = {
     successBody:
       "Merci. Un courtier vous rappelle en moins de 24 heures. Pour un dossier urgent, appelez-nous directement au 1-833-508-3772.",
     successAgain: "Envoyer une autre demande",
+    demoBody:
+      "Formulaire validé. Cette version de démonstration n'envoie pas encore la demande : le formulaire sera branché à la boîte de réception ou au CRM de votre choix. Pour joindre un courtier maintenant, appelez le 1-833-508-3772.",
     errorTitle: "L'envoi a échoué",
     errorBody:
       "Une erreur est survenue. Réessayez, ou appelez-nous au 1-833-508-3772.",

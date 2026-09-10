@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 43127 -H 0.0.0.0",
     "build": "next build",
+    "build:pages": "STATIC_EXPORT=1 next build && node scripts/post-export.mjs",
     "start": "next start -p 43127",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

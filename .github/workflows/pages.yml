@@ -1,0 +1,79 @@
+#
+# Publishes the prototype to GitHub Pages.
+#
+# Before the first run: Settings -> Pages -> Source -> "GitHub Actions".
+#
+# A project site is served from https://<user>.github.io/<repo>/, so every
+# asset needs that repo name as a prefix. PAGES_BASE_PATH is derived below.
+# If you later point a custom domain at the site, set PAGES_BASE_PATH to an
+# empty string instead, because a custom domain serves from the root.
+#
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it midway.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check types and lint
+        run: |
+          npm run typecheck
+          npm run lint
+
+      - name: Build static export
+        env:
+          PAGES_BASE_PATH: /${{ github.event.repository.name }}
+        run: npm run build:pages
+
+      - name: Confirm the export looks complete
+        env:
+          BASE: /${{ github.event.repository.name }}
+        run: |
+          set -e
+          test -f out/index.html   || { echo "missing out/index.html"; exit 1; }
+          test -f out/.nojekyll    || { echo "missing out/.nojekyll"; exit 1; }
+          test -f out/fr/index.html || { echo "missing French home page"; exit 1; }
+          test -f out/en/index.html || { echo "missing English home page"; exit 1; }
+          pages=$(find out -name index.html | wc -l)
+          echo "exported $pages pages"
+          [ "$pages" -ge 20 ] || { echo "expected at least 20 pages"; exit 1; }
+          grep -q "$BASE/_next/" out/fr/index.html \
+            || { echo "assets are not prefixed with $BASE"; exit 1; }
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -6,6 +6,7 @@ import { SmoothAnchor } from "@/components/motion/smooth-anchor";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { getDictionary, hasLocale, locales } from "@/content";
+import { asset } from "@/lib/asset";
 
 import "../globals.css";
 
@@ -40,7 +41,7 @@ export async function generateMetadata({
     },
     description: dict.meta.description,
     metadataBase: new URL("https://versa.codesurmesure.ca"),
-    icons: { icon: "/favicon.png" },
+    icons: { icon: asset("/favicon.png") },
     alternates: {
       canonical: `/${locale}`,
       languages: { fr: "/fr", en: "/en" },
