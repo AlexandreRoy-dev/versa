@@ -3,7 +3,7 @@ import type { Dictionary } from "./types";
 export const en: Dictionary = {
   locale: "en",
   meta: {
-    title: "Versa Capital — Commercial equipment financing",
+    title: "Versa Capital | Commercial equipment financing",
     description:
       "Quebec-based brokerage for commercial equipment financing. Leasing, factoring, refinancing and term loans, with a callback in under 24 hours.",
   },
@@ -406,10 +406,10 @@ export const en: Dictionary = {
     privacy:
       "Your contact details are used only to process this financing request.",
     amountRanges: [
-      "$1,000 – $25,000",
-      "$25,001 – $50,000",
-      "$50,001 – $100,000",
-      "$100,001 – $250,000",
+      "$1,000 to $25,000",
+      "$25,001 to $50,000",
+      "$50,001 to $100,000",
+      "$100,001 to $250,000",
       "$250,001 and up",
     ],
   },

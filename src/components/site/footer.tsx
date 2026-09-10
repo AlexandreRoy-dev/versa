@@ -120,7 +120,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
           <p>
-            © {year} {dict.footer.rights} — {dict.footer.hosted}
+            © {year} {dict.footer.rights} · {dict.footer.hosted}
           </p>
           <p className="text-white/30">{dict.footer.prototypeNotice}</p>
         </div>

@@ -1,4 +1,4 @@
-# Versa Capital — refonte (prototype)
+# Refonte du site Versa Capital (prototype)
 
 Maquette fonctionnelle de refonte pour [versacapital.ca](https://versacapital.ca/),
 cabinet-conseil en financement d'équipement commercial basé à

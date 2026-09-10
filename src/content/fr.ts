@@ -3,7 +3,7 @@ import type { Dictionary } from "./types";
 export const fr: Dictionary = {
   locale: "fr",
   meta: {
-    title: "Versa Capital — Financement d'équipement commercial",
+    title: "Versa Capital | Financement d'équipement commercial",
     description:
       "Cabinet-conseil en financement d'équipement commercial au Québec. Crédit-bail, affacturage, refinancement et prêt à terme, avec un rappel en moins de 24 heures.",
   },
@@ -414,10 +414,10 @@ export const fr: Dictionary = {
     privacy:
       "Vos coordonnées servent uniquement à traiter votre demande de financement.",
     amountRanges: [
-      "1 000 $ – 25 000 $",
-      "25 001 $ – 50 000 $",
-      "50 001 $ – 100 000 $",
-      "100 001 $ – 250 000 $",
+      "1 000 $ à 25 000 $",
+      "25 001 $ à 50 000 $",
+      "50 001 $ à 100 000 $",
+      "100 001 $ à 250 000 $",
       "250 001 $ et plus",
     ],
   },
