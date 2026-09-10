@@ -25,8 +25,6 @@ export function Header({ dict }: { dict: Dictionary }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
-
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -122,6 +120,7 @@ export function Header({ dict }: { dict: Dictionary }) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setOpen(false)}
               className={cn(
                 "font-heading rounded-lg px-3 py-3 text-lg transition-colors duration-300 ease-brand",
                 pathname === item.href
@@ -134,6 +133,7 @@ export function Header({ dict }: { dict: Dictionary }) {
           ))}
           <a
             href={contact.phoneHref}
+            onClick={() => setOpen(false)}
             className="mt-2 flex items-center gap-2 rounded-lg px-3 py-3 text-lg text-brand-300"
           >
             <Phone className="size-4" aria-hidden />
