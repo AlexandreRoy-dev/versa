@@ -219,6 +219,10 @@ Trois points à respecter pour ce mode :
   n'existe pas : le site répond 404 ;
 - `PAGES_CNAME` écrit `out/CNAME`. Sans ce fichier, un `push --force` sur
   `gh-pages` efface le domaine personnalisé configuré dans les réglages ;
+- le site a d'abord été publié sous `/versa`, avant que le domaine ne le
+  ramène à la racine. Ces adresses restent dans les caches, les historiques et
+  l'autocomplétion des navigateurs, donc `404.html` porte un script qui retire
+  le préfixe et renvoie vers la bonne page, plutôt que d'afficher une erreur ;
 - l'export statique n'a pas de route API. Le formulaire valide la saisie,
   puis annonce qu'il s'agit d'une démonstration au lieu de simuler un envoi.
   Le formulaire réel n'existe que sur le déploiement VPS.
