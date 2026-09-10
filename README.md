@@ -200,3 +200,33 @@ ssh <utilisateur>@158.69.1.173 "sudo certbot --nginx -d versa.codesurmesure.ca"
 
 Le vhost envoie `X-Robots-Tag: noindex, nofollow`, la maquette n'ayant pas à
 être indexée.
+
+## Hébergement actuel sur GitHub Pages
+
+En attendant l'accès au VPS, la maquette est publiée sur GitHub Pages, à
+`https://versa.roymarketing.ca/`, depuis la branche `gh-pages` du dépôt
+`AlexandreRoy-dev/versa`.
+
+```bash
+PAGES_CNAME=versa.roymarketing.ca npm run build:pages
+```
+
+Trois points à respecter pour ce mode :
+
+- **pas de `PAGES_BASE_PATH` avec un domaine personnalisé.** Pages sert alors
+  le dépôt à la racine, et non sous `/versa`. Une variable oubliée fait
+  pointer tous les liens et toutes les ressources vers `/versa/...`, qui
+  n'existe pas : le site répond 404 ;
+- `PAGES_CNAME` écrit `out/CNAME`. Sans ce fichier, un `push --force` sur
+  `gh-pages` efface le domaine personnalisé configuré dans les réglages ;
+- l'export statique n'a pas de route API. Le formulaire valide la saisie,
+  puis annonce qu'il s'agit d'une démonstration au lieu de simuler un envoi.
+  Le formulaire réel n'existe que sur le déploiement VPS.
+
+Publication :
+
+```bash
+rm -rf out && PAGES_CNAME=versa.roymarketing.ca npm run build:pages
+cd out && git init -b gh-pages && git add -A && git commit -m "Publish"
+git push --force https://github.com/AlexandreRoy-dev/versa.git gh-pages
+```
