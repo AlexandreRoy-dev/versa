@@ -126,9 +126,10 @@ export function Section({
         className,
       )}
     >
-      {tone !== "white" ? (
-        <Atmosphere tone={tone === "navy" ? "dark" : "light"} />
-      ) : null}
+      <Atmosphere
+        tone={tone === "navy" ? "dark" : "light"}
+        subtle={tone === "white"}
+      />
       <div className="container-vc relative">{children}</div>
     </section>
   );
