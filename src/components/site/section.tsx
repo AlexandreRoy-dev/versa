@@ -12,6 +12,7 @@ export function SectionHeading({
   body,
   tone = "light",
   align = "left",
+  as: Heading = "h2",
   className,
 }: {
   eyebrow: string;
@@ -19,6 +20,7 @@ export function SectionHeading({
   body?: string;
   tone?: "light" | "dark";
   align?: "left" | "center";
+  as?: "h1" | "h2";
   className?: string;
 }) {
   const isDark = tone === "dark";
@@ -43,14 +45,14 @@ export function SectionHeading({
         </p>
       </Reveal>
       <Reveal delay={0.12}>
-        <h2
+        <Heading
           className={cn(
             "text-balance-vc mt-4 text-3xl leading-[1.12] font-semibold sm:text-4xl md:text-[2.6rem]",
             isDark ? "text-white" : "text-navy-900",
           )}
         >
           {heading}
-        </h2>
+        </Heading>
       </Reveal>
       {body ? (
         <Reveal delay={0.24}>
@@ -98,6 +100,7 @@ export function PageHero({
           heading={heading}
           body={body}
           tone="dark"
+          as="h1"
         />
         {children}
       </div>
