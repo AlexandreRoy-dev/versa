@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport:{width:1440,height:900}, javaScriptEnabled:false });
+await p.goto('http://localhost:5180/', { waitUntil:'networkidle' });
+const r = await p.evaluate(()=>({cls:document.documentElement.className, loader:getComputedStyle(document.querySelector('.loader')).display, h1:getComputedStyle(document.querySelector('.hero__title .ln__i')).transform, fade:getComputedStyle(document.querySelector('.about__copy .body')).opacity, clip:getComputedStyle(document.querySelector('.about__fig')).clipPath}));
+console.log(r);
+const q = await b.newPage({ viewport:{width:1440,height:900}, reducedMotion:'reduce' });
+await q.goto('http://localhost:5180/', { waitUntil:'networkidle' });
+console.log(await q.evaluate(()=>({cls:document.documentElement.className, lenis:!!window.__lenis, loader:getComputedStyle(document.querySelector('.loader')).display})));
+await b.close();
