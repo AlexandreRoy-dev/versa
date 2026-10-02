@@ -55,7 +55,6 @@ function vLines(canvas, animate) {
   const ctx = canvas.getContext('2d');
   const slope = 67 / 200; // slant of the logo stripes
   let w, h, dpr, lines, running = false, t0 = performance.now();
-  const colors = ['rgba(151,211,242,', 'rgba(0,168,232,', 'rgba(255,255,255,'];
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     w = canvas.clientWidth; h = canvas.clientHeight;
@@ -64,7 +63,7 @@ function vLines(canvas, animate) {
     lines = Array.from({ length: n }, (_, i) => ({
       x: (i / n) * (w + h * slope) - h * slope * 0.2,
       a: Math.random() < 0.12 ? 0.22 + Math.random() * 0.16 : 0.04 + Math.random() * 0.06,
-      c: colors[Math.random() < 0.15 ? 1 : Math.random() < 0.5 ? 0 : 2],
+      c: 'rgba(255,255,255,',
       s: 6 + Math.random() * 10,
       len: 0.35 + Math.random() * 0.65,
       off: Math.random(),

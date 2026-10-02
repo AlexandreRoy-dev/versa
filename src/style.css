@@ -139,7 +139,7 @@ h1,h2,h3,p,figure,blockquote{margin:0}
 .inter{position:relative;min-height:115vh;color:var(--white);display:flex;align-items:center;overflow:hidden;background:var(--navy)}
 .inter__media{position:absolute;inset:0}
 .inter__media img{width:100%;height:100%;object-fit:cover}
-.inter__media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,40,68,.9) 0%,rgba(0,52,89,.55) 55%,rgba(0,52,89,.2) 100%)}
+.inter__media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,16,18,.64) 0%,rgba(14,16,18,.3) 38%,rgba(14,16,18,0) 72%)}
 .inter__content{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px}
 .inter__title{font-size:clamp(44px,7.4vw,140px);line-height:.95;letter-spacing:-.055em;font-weight:500;max-width:9ch}
 .inter__body{font-size:clamp(16px,1.25vw,20px);line-height:1.6;color:rgba(255,255,255,.8);max-width:44ch}
@@ -199,9 +199,9 @@ h1,h2,h3,p,figure,blockquote{margin:0}
 
 /* CTA */
 .cta{position:relative;background:var(--navy);color:var(--white);overflow:hidden;padding-block:calc(var(--sec)*1.1) var(--sec)}
-.cta__media{position:absolute;inset:-12% 0;opacity:.5}
+.cta__media{position:absolute;inset:-12% 0;opacity:1}
 .cta__media img{width:100%;height:100%;object-fit:cover;object-position:50% 70%}
-.cta::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--navy) 0%,rgba(0,52,89,.6) 45%,rgba(0,52,89,.85) 100%)}
+.cta::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(14,16,18,.6) 0%,rgba(14,16,18,.18) 46%,rgba(14,16,18,.5) 100%)}
 .cta__lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .cta__wrap{position:relative;z-index:2}
 .cta__title{font-size:clamp(44px,7.6vw,148px);line-height:.94;letter-spacing:-.055em;font-weight:500;margin-top:32px;max-width:11ch}
@@ -338,8 +338,8 @@ h1,h2,h3,p,figure,blockquote{margin:0}
 .engage__quote .q1{max-width:15ch}
 .engage__quote .q2{font-weight:200;padding-left:16.66%;max-width:calc(15ch + 16.66%);margin-top:.12em}
 .cta__title{max-width:14ch}
-.cta__media{opacity:.62}
-.cta::before{background:linear-gradient(180deg,var(--navy) 0%,rgba(0,52,89,.45) 50%,rgba(0,52,89,.8) 100%)}
+.cta__media{opacity:1}
+.cta::before{background:linear-gradient(180deg,rgba(14,16,18,.6) 0%,rgba(14,16,18,.18) 46%,rgba(14,16,18,.5) 100%)}
 .pillar__title{font-size:clamp(40px,6vw,108px)}
 @media (max-width:900px){.engage__quote .q2{padding-left:0}}
 /* Pass 3 */
