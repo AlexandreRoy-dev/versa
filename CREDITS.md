@@ -1,9 +1,9 @@
 # Credits and image sources
 
-The hero photograph (city-night) is graded to the Versa navy palette with tools/grade.py. Photographs in the lower part of the page (facade, skyline, equipment, and team photos) are exported in their natural colors. WebP files live in public/img/.
+All stock images were graded to the Versa navy/cyan palette (duotone) with tools/grade.py and exported as WebP in public/img/.
 
 ## Team photography (client supplied)
-- versa-photo-1.jpg to versa-photo-4.jpg, supplied by Versa Capital (/workspace/versa/uploads). Used as team-1..4. The "g" and "d" files are the same natural-color photo at different sizes. The "d" sizes are the service-card crops. The original JPEGs are not in this repo, so the shipped team files were recovered by inverting the previous cool grade.
+- versa-photo-1.jpg to versa-photo-4.jpg, supplied by Versa Capital (/workspace/versa/uploads). Used as team-1..4 (subtle grade "g", duotone "d").
 
 ## Stock photography (Pexels License, free to use, attribution not required but given here)
 - city-night: "Skyscrapers at Night" (downtown Montreal) by Julia Barrantes. https://www.pexels.com/photo/skyscrapers-at-night-15452183/

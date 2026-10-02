@@ -139,7 +139,7 @@ h1,h2,h3,p,figure,blockquote{margin:0}
 .inter{position:relative;min-height:115vh;color:var(--white);display:flex;align-items:center;overflow:hidden;background:var(--navy)}
 .inter__media{position:absolute;inset:0}
 .inter__media img{width:100%;height:100%;object-fit:cover}
-.inter__media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,16,18,.64) 0%,rgba(14,16,18,.3) 38%,rgba(14,16,18,0) 72%)}
+.inter__media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,40,68,.9) 0%,rgba(0,52,89,.55) 55%,rgba(0,52,89,.2) 100%)}
 .inter__content{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px}
 .inter__title{font-size:clamp(44px,7.4vw,140px);line-height:.95;letter-spacing:-.055em;font-weight:500;max-width:9ch}
 .inter__body{font-size:clamp(16px,1.25vw,20px);line-height:1.6;color:rgba(255,255,255,.8);max-width:44ch}
