@@ -291,3 +291,9 @@ h1,h2,.services__title,.stat__num{font-feature-settings:"ss01","cv11"}
   .blobs i,.marquee__track{animation:none!important}
   .hero__media,[data-tilt],.btn[data-magnetic]{transform:none!important}
 }
+
+/* Qui sommes-nous: photo d'équipe en vedette */
+.about__copy{grid-column:1/span 5}
+.about__fig{grid-column:6/span 7;aspect-ratio:3/2;border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.about__fig img{object-position:55% 50%}
+@media (max-width:900px){.about__copy,.about__fig{grid-column:auto}.about__fig{aspect-ratio:3/2}}
