@@ -297,3 +297,11 @@ h1,h2,.services__title,.stat__num{font-feature-settings:"ss01","cv11"}
 .about__fig{grid-column:6/span 7;aspect-ratio:3/2;border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
 .about__fig img{object-position:55% 50%}
 @media (max-width:900px){.about__copy,.about__fig{grid-column:auto}.about__fig{aspect-ratio:3/2}}
+
+/* Hero fixe, effet rideau (2026-10-16) */
+.hero{position:sticky;top:0;z-index:0;height:100vh;height:100svh;min-height:0}
+.hero__media{transform:none!important;will-change:auto}
+main>section:not(.hero),main>.marquee{position:relative;z-index:1}
+main>.services{border-radius:28px 28px 0 0;margin-top:-28px;box-shadow:0 -24px 50px rgba(15,46,102,.28)}
+.ftr{position:relative;z-index:1}
+@media (max-width:900px){.hero{min-height:0}main>.services{border-radius:20px 20px 0 0;margin-top:-20px}}

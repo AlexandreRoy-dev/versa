@@ -51,7 +51,7 @@ window.__ready = true;
 
 /* ---- Vivant 2026-10-16: progress bar, parallax, tilt, magnetic (no libs) ---- */
 const bar = $('.progress');
-const heroImg = $('.hero__media');
+const heroCopy = $('.hero__grid');
 const pars = $$('[data-parallax] img');
 let ticking = false;
 function onScroll() {
@@ -60,7 +60,7 @@ function onScroll() {
     const h = document.documentElement.scrollHeight - innerHeight;
     if (bar) bar.style.transform = `scaleX(${h > 0 ? scrollY / h : 0})`;
     if (!reduce) {
-      if (heroImg && scrollY < innerHeight * 1.2) heroImg.style.transform = `translate3d(0,${scrollY * 0.25}px,0)`;
+      if (heroCopy && scrollY < innerHeight * 1.2) { const k = Math.min(1, scrollY / (innerHeight * 0.8)); heroCopy.style.opacity = (1 - k * 0.85).toFixed(3); heroCopy.style.translate = `0 ${(-k * 40).toFixed(1)}px`; }
       pars.forEach((img) => {
         const r = img.parentElement.getBoundingClientRect();
         if (r.bottom < 0 || r.top > innerHeight) return;
