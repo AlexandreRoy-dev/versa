@@ -3,7 +3,7 @@ const [,,out,w]=process.argv; const W=+w;
 const b=await chromium.launch();
 const p=await b.newPage({viewport:{width:W,height:900},deviceScaleFactor:W<500?2:1,isMobile:W<500});
 const errs=[]; p.on('pageerror',e=>errs.push(e.message));
-await p.goto('http://localhost:5180/?static',{waitUntil:'domcontentloaded',timeout:60000});
+await p.goto((process.env.URL||'http://localhost:5180/')+'?static',{waitUntil:'domcontentloaded',timeout:60000});
 await p.waitForTimeout(1500);
 await p.evaluate(async()=>{ for(let y=0;y<document.body.scrollHeight;y+=500){ scrollTo(0,y); await new Promise(r=>setTimeout(r,30)); } scrollTo(0,0); });
 await p.waitForTimeout(600);
