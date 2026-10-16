@@ -48,3 +48,46 @@ if (reduce) {
   $$('.fade').forEach((el) => io.observe(el));
 }
 window.__ready = true;
+
+/* ---- Vivant 2026-10-16: progress bar, parallax, tilt, magnetic (no libs) ---- */
+const bar = $('.progress');
+const heroImg = $('.hero__media');
+const pars = $$('[data-parallax] img');
+let ticking = false;
+function onScroll() {
+  if (ticking) return; ticking = true;
+  requestAnimationFrame(() => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    if (bar) bar.style.transform = `scaleX(${h > 0 ? scrollY / h : 0})`;
+    if (!reduce) {
+      if (heroImg && scrollY < innerHeight * 1.2) heroImg.style.transform = `translate3d(0,${scrollY * 0.25}px,0)`;
+      pars.forEach((img) => {
+        const r = img.parentElement.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+        img.style.translate = `0 ${(-p * 24).toFixed(1)}px`;
+      });
+    }
+    ticking = false;
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  $$('[data-tilt]').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(900px) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg) translateY(-6px)`;
+    });
+    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+  });
+  $$('[data-magnetic]').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * 0.25).toFixed(1)}px,${((e.clientY - r.top - r.height / 2) * 0.35).toFixed(1)}px)`;
+    });
+    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+  });
+}
