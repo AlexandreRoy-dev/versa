@@ -330,3 +330,127 @@ main>.services{border-radius:28px 28px 0 0;margin-top:-28px;box-shadow:0 -24px 5
 .svc__title a{color:inherit}.svc__title a:hover{color:var(--royal)}
 @media (max-width:1100px){.steps__list{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:900px){.page-grid,.related__grid,.steps__list{grid-template-columns:1fr}.page-grid>div,.page-incl{grid-column:auto}}
+
+/* ==========================================================================
+   Révision v2 2026-10-20 (commentaires Versa Capital)
+   ========================================================================== */
+/* Liens en haut de page: versaequip.ca et versacorpfinance.com */
+.hdr__top{grid-column:1/-1;display:flex;justify-content:flex-end;gap:22px;font-size:12px;letter-spacing:.02em;line-height:1;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.16);max-height:40px;overflow:hidden;transition:max-height .4s var(--ease),padding .4s var(--ease),margin .4s var(--ease),opacity .3s,border-color .4s}
+.hdr__top a{opacity:.85;transition:opacity .3s}
+.hdr__top a:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+.hdr.is-scrolled .hdr__top{max-height:0;padding-bottom:0;margin-bottom:0;opacity:0;border-color:transparent}
+
+/* Hero: moins d'espace vide, contenu centré verticalement */
+.hero{height:auto;min-height:clamp(560px,74svh,720px);align-items:center}
+.hero__grid{padding-block:clamp(128px,11vw,150px) clamp(64px,6vw,88px)}
+.hero__title{max-width:18ch}
+.hero__title span{display:block;color:#BFE6FA}
+
+/* Titres principaux des sections: plus grands et centrés */
+.sec-head--center{justify-content:center;gap:clamp(16px,2.4vw,32px);margin-bottom:clamp(18px,2vw,28px)}
+.sec-head--center .hair{flex:1;max-width:220px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(28,79,160,.35))}
+.sec-head--center .hair:last-child{background:linear-gradient(90deg,rgba(28,79,160,.35),transparent)}
+[data-section=dark] .sec-head--center .hair{background:linear-gradient(90deg,transparent,rgba(255,255,255,.35))}
+[data-section=dark] .sec-head--center .hair:last-child{background:linear-gradient(90deg,rgba(255,255,255,.35),transparent)}
+.sec-title{font-family:var(--f-label);font-weight:600;font-size:clamp(30px,3.4vw,50px);line-height:1.05;letter-spacing:-.01em;color:var(--royal);text-align:center;font-feature-settings:normal}
+[data-section=dark] .sec-title{color:var(--white)}
+.sec-intro{display:flex!important;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.sec-intro .services__title,.sec-intro .sectors__title{font-size:clamp(20px,1.9vw,28px);letter-spacing:-.02em;line-height:1.25;color:var(--ink);font-weight:500}
+.sec-intro .body{max-width:60ch}
+.sub-title{font-family:var(--f-label);font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--royal);display:flex;align-items:center;gap:12px;margin:0 0 18px}
+.sub-title::before{content:"";width:22px;height:2px;background:var(--grad);border-radius:2px}
+
+/* Produits de financement */
+.prods{margin-bottom:clamp(36px,4vw,56px)}
+.prods__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.prod{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:10px;background:var(--paper);border:1px solid rgba(15,46,102,.08);transition:border-color .4s var(--ease),box-shadow .4s var(--ease)}
+.prod:hover{border-color:rgba(28,79,160,.25);box-shadow:0 12px 28px rgba(15,46,102,.08)}
+.prod__n{flex:none;font-family:var(--f-label);font-weight:600;font-size:12px;letter-spacing:.14em;color:var(--white);background:var(--royal);border-radius:6px;padding:7px 9px}
+.prod__t{font-size:16px;line-height:1.35;font-weight:500;color:var(--ink);letter-spacing:-.01em}
+
+/* Trois lignes: équipements, corporatif, Versa Équipements */
+.services__grid{grid-template-columns:repeat(3,1fr);gap:20px}
+.svc__tag{position:absolute;right:14px;top:14px;font-family:var(--f-label);font-weight:600;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--royal);background:rgba(255,255,255,.92);padding:7px 10px;border-radius:999px}
+.svc__cta--ext{margin-top:auto;flex-direction:column;align-items:flex-start;gap:2px}
+.svc__cta--ext+.svc__cta{margin-top:0}
+.svc__note{font-size:12px;font-weight:400;color:var(--slate)}
+
+/* Avantages complémentaires */
+.advs{margin-top:clamp(36px,4vw,56px)}
+.advs__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.adv{padding:22px;border-radius:10px;border:1px solid rgba(15,46,102,.09);background:linear-gradient(180deg,var(--royal-soft),var(--white));position:relative;overflow:hidden}
+.adv::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--grad)}
+.adv__t{margin:0 0 8px;font-size:18px;font-weight:500;letter-spacing:-.02em;color:var(--royal)}
+.adv p{font-size:14px;line-height:1.55;color:var(--slate)}
+
+/* Éléments de crédibilité */
+.stat__wrap{flex-direction:column;align-items:center;gap:clamp(28px,3vw,40px)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,32px);width:100%}
+.kpi{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:8px 6px}
+.kpi+.kpi{border-left:1px solid rgba(255,255,255,.16)}
+.kpi__pre{font-family:var(--f-label);font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:#BFE6FA}
+.kpi__num{font-family:var(--f-label);font-weight:600;font-size:clamp(44px,5.2vw,76px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap;background:linear-gradient(180deg,#fff 30%,#BFE6FA);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpi__cap{font-size:clamp(15px,1.2vw,18px);line-height:1.3;color:rgba(255,255,255,.9);max-width:16ch}
+
+/* Secteurs: 7 tuiles, ordre selon le volume */
+.sectors__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+.sectors__grid .sector{width:calc((100% - 60px)/4)}
+.sector__body{padding:16px 18px 20px;gap:8px}
+.sector__title{font-size:clamp(17px,1.3vw,20px)}
+.sector__list{font-size:14px;gap:4px}
+
+/* Qui sommes-nous? */
+.about .sec-head--center{margin-bottom:clamp(28px,3.5vw,48px)}
+.about__hist{display:flex;flex-direction:column;gap:8px;border-top:1px solid rgba(255,255,255,.18);padding-top:18px}
+.about__hist p:not(.label){font-size:clamp(15px,1vw,17px);line-height:1.6;color:rgba(255,255,255,.88);max-width:52ch}
+
+/* Nous joindre: fond photo, formulaire mis en valeur */
+.cta{position:relative;overflow:hidden;background:var(--royal-ink);color:var(--white)}
+.cta::before{display:none}
+.cta__media{position:absolute;inset:0;z-index:0}
+.cta__media img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.cta__veil{position:absolute;inset:0;background:linear-gradient(105deg,rgba(15,46,102,.94) 0%,rgba(28,79,160,.86) 45%,rgba(28,79,160,.72) 100%)}
+.cta__head,.cta__wrap{position:relative;z-index:1}
+.cta__head .sec-head--center{margin-bottom:clamp(28px,3.5vw,48px)}
+.cta__wrap{align-items:center}
+.cta__title{color:var(--white)}
+.cta__lede{color:rgba(255,255,255,.88)}
+.cta__big{color:var(--white)}
+.form{background:var(--white);border:0;border-radius:14px;box-shadow:0 30px 70px rgba(5,20,50,.45);padding:clamp(24px,3vw,40px);position:relative;overflow:hidden}
+.form::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--grad)}
+.form .field input,.form .field select,.form .field textarea{background:var(--paper)}
+.form .btn{--bg:var(--cyan);--fg:var(--white)}
+.form .btn::before{background:var(--royal-deep)}
+.form .btn:hover{color:var(--white)}
+
+/* Pied de page */
+.ftr__base a{color:rgba(255,255,255,.7)}
+.ftr__sep{margin-inline:8px;opacity:.5}
+
+@media (max-width:1100px){
+  .sectors__grid .sector{width:calc((100% - 40px)/3)}
+  .advs__grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .hdr__top{justify-content:center;gap:16px;font-size:11.5px}
+  .hero{min-height:100svh;min-height:100vh;min-height:100svh}
+  .hero__grid{padding-block:120px 48px}
+  .prods__grid,.services__grid{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr);row-gap:28px}
+  .kpi+.kpi{border-left:0}
+  .kpi:nth-child(even){border-left:1px solid rgba(255,255,255,.16)}
+  .sectors__grid{gap:14px}
+  .sectors__grid .sector{width:calc((100% - 14px)/2)}
+  .sec-head--center .hair{max-width:60px}
+}
+@media (max-width:480px){
+  .hdr__top{gap:12px;font-size:11px}
+  .advs__grid{grid-template-columns:1fr}
+  .hero__copy{align-items:center;text-align:center;margin-inline:auto}
+  .hero__brand{align-items:center}
+  .hero__ctas{justify-content:center;flex-direction:column}
+  .hero__tel{align-items:center}
+  .hero__title{font-size:34px;max-width:none}
+  .sector__body{padding:12px 14px 16px}
+  .sector__list li::before{display:none}
+}

@@ -13,7 +13,8 @@ STEPS=[('Comprendre','Saisir la réalité de l’entreprise, ses opérations, so
 ('Positionner','Préparer et présenter le dossier aux partenaires financiers appropriés en mettant en valeur ses forces.'),
 ('Comparer et expliquer','Comparer les options et rendre leurs impacts faciles à comprendre afin de soutenir une décision éclairée.'),
 ('Accompagner','Coordonner la documentation, la négociation, la signature et le déboursé, puis demeurer disponible après la transaction.')]
-SECT=[('Construction et excavation',['Équipement d’excavation','Équipement de construction']),('Manutention et industriel',['Équipement de manutention','Équipement industriel']),('Médical et technologies',['Équipement médical','Équipement informatique'])]
+# Révision v2 (2026-10-20): secteurs dans l'ordre de volume fourni par Versa Capital.
+SECT=[('Construction',['Équipement de construction','Équipement d’excavation']),('Agriculture',['Équipement agricole']),('Foresterie',['Équipement forestier']),('Médical',['Équipement médical']),('Transport',['Équipement de transport']),('Manutention et industriel',['Équipement de manutention','Équipement industriel']),('Restauration',['Équipement de restauration'])]
 P=[
  dict(slug='financement-equipements',name='Financement d’équipements',img=('excavatrice-chantier-vue-aerienne','Excavatrice jaune vue du ciel sur un chantier d’excavation',2400,1801),
   title='Financement d’équipements | Versa Capital, cabinet-conseil en financement',
@@ -27,22 +28,10 @@ P=[
   lede='Croissance, acquisition, refinancement ou optimisation : une stratégie de financement alignée sur les ambitions de votre entreprise.',
   desc=['Soutien aux projets de croissance, acquisitions, fonds de roulement, refinancement, consolidation de dettes et optimisation de la structure financière.','Financement hypothécaire commercial : accompagnement pour les projets immobiliers commerciaux et les besoins de financement qui s’inscrivent dans la stratégie globale de l’entreprise.','Fusions, acquisitions et solutions corporatives : conseils pour les décisions structurantes liées à l’achat, à la vente, au transfert ou au développement d’une entreprise.'],
   bullets=['Financement hypothécaire commercial','Fusions et acquisitions (M&amp;A)','Financement privé et alternatif','Optimisation de structure financière'],sectors=False),
- dict(slug='solutions-specialisees',name='Solutions spécialisées',img=('facade-immeuble-moderne','Façade d’un immeuble moderne',2400,1579),
-  title='Solutions spécialisées | Versa Capital, cabinet-conseil en financement',
-  meta="Solutions spécialisées de Versa Capital : programmes sur mesure pour industries spécifiques et stratégies de liquidité et de croissance.",
-  lede='Des programmes sur mesure pour les industries spécifiques et des stratégies de liquidité et de croissance.',
-  desc=['Nous considérons plusieurs avenues et structurons des solutions qui correspondent réellement à la situation du client.'],
-  bullets=['Programmes sur mesure pour industries spécifiques','Stratégies de liquidité et de croissance'],sectors=True),
- dict(slug='optimisation-cout-capital',name='Optimisation du coût du capital',img=('tours-centre-ville-nuit','Tours du centre-ville illuminées la nuit',2400,1675),
-  title='Optimisation du coût du capital | Versa Capital',
-  meta="Optimisation du coût du capital par Versa Capital : accompagnement transactionnel, support à l'achat ou à la vente d'équipements, offre intégrée avec Versa Équipements.",
-  lede='Accompagnement transactionnel et support lors de l’achat ou de la vente d’équipements, en collaboration avec Versa Équipements.',
-  desc=['Nous centralisons la recherche, la comparaison, la négociation et les suivis dans une démarche simple et claire.'],
-  bullets=['Accompagnement transactionnel','Support lors de l’achat ou de la vente d’équipements','Collaboration avec Versa Équipements pour une offre intégrée'],sectors=False),
 ]
 def fix_links(x):
     x=x.replace('href="#top"','href="/"')
-    return re.sub(r'href="#(services|secteurs|qui)"',r'href="/#\1"',x)
+    return re.sub(r'href="#(produits|secteurs|qui)"',r'href="/#\1"',x)
 svc_nav=''.join(f'<li><a href="/{p["slug"]}/">{p["name"]}</a></li>' for p in P)
 for p in P:
     head=head_tpl
@@ -58,7 +47,7 @@ for p in P:
     </div>
     <div class="hero__grid wrap">
       <div class="hero__copy" data-hero>
-        <p class="hero__brand"><a class="hero__crumb" href="/">Versa Capital</a><span class="hero__brand-role">Nos services</span></p>
+        <p class="hero__brand"><a class="hero__crumb" href="/">Versa Capital</a><span class="hero__brand-role">Produits offerts</span></p>
         <h1 class="hero__title">{p["name"]}</h1>
         <p class="hero__lede">{p["lede"]}</p>
         <div class="hero__ctas">
@@ -92,7 +81,7 @@ for p in P:
   <section class="sectors" data-section="light">
     <div class="wrap">
       <div class="sec-head"><p class="label">Pour qui</p><span class="hair"></span></div>
-      <div class="sectors__intro fade"><h2 class="sectors__title">Secteurs financés</h2><p class="body">Excavation, construction, manutention, industriel, médical ou informatique.</p></div>
+      <div class="sectors__intro fade"><h2 class="sectors__title">Secteurs financés</h2><p class="body">Construction, agriculture, foresterie, médical, transport, manutention, industriel ou restauration.</p></div>
       <div class="sectors__grid" data-stagger>{tiles}</div>
     </div>
   </section>
@@ -116,6 +105,7 @@ for p in P:
   </section>
 '''
     rel=''.join(f'<a class="rel fade" href="/{q["slug"]}/"><span class="rel__k">Service</span><span class="rel__n">{q["name"]}</span><span class="svc__arrow" aria-hidden="true"></span></a>' for q in P if q is not p)
+    rel+='<a class="rel fade" href="https://www.versaequip.ca" target="_blank" rel="noopener"><span class="rel__k">Nouvelle ligne de produits</span><span class="rel__n">Versa Équipements inc.</span><span class="svc__arrow" aria-hidden="true"></span></a>'
     body+=f'''
   <section class="related" data-section="light">
     <div class="wrap">
