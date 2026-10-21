@@ -7,6 +7,7 @@ Since 2026-10-14 all images are exported in natural colour (no navy duotone, no 
 
 ## Stock photography (Pexels License, free to use, attribution not required but given here)
 - excavatrice-chantier-vue-aerienne: "Aerial View of Construction Excavator on Site" by Volker Braun (no people). https://www.pexels.com/photo/aerial-view-of-construction-excavator-on-site-33122153/
+- The 2400px excavator file was re-encoded from that source JPEG on 2026-10-21 (WebP quality 30, still 2400x1801). The 800 and 1400 files are unchanged. Open Graph crops (og-*.jpg) are 1200x630 frames of the same source photos.
 - tours-centre-ville-nuit: "Skyscrapers at Night" (downtown Montreal) by Julia Barrantes. https://www.pexels.com/photo/skyscrapers-at-night-15452183/
 - facade-immeuble-moderne: "Modern Architectural Building Facade Design" by Glenn Deblaere. https://www.pexels.com/photo/modern-architectural-building-facade-design-35528879/
 - horizon-urbain-commercial: "Montreal Cityscape with Skyscrapers and Clouds" by Daoud Saeed. https://www.pexels.com/photo/montreal-cityscape-with-skyscrapers-and-clouds-38633406/
