@@ -4,8 +4,78 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Optimisation du coût du capital | Versa Capital</title>
-  <meta name="description" content="Optimisation du coût du capital par Versa Capital : accompagnement transactionnel, support à l'achat ou à la vente d'équipements, offre intégrée avec Versa Équipements." />
+  <meta name="description" content="Optimisation du coût du capital par Versa Capital : accompagnement transactionnel, achat ou vente d'équipements, offre intégrée avec Versa Équipements." />
   <link rel="canonical" href="https://versa.roymarketing.ca/optimisation-cout-capital/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Versa Capital" />
+  <meta property="og:locale" content="fr_CA" />
+  <meta property="og:title" content="Optimisation du coût du capital | Versa Capital" />
+  <meta property="og:description" content="Optimisation du coût du capital par Versa Capital : accompagnement transactionnel, achat ou vente d'équipements, offre intégrée avec Versa Équipements." />
+  <meta property="og:url" content="https://versa.roymarketing.ca/optimisation-cout-capital/" />
+  <meta property="og:image" content="https://versa.roymarketing.ca/img/tours-centre-ville-nuit-1400.webp" />
+  <meta property="og:image:alt" content="Tours du centre-ville illuminées la nuit" />
+  <meta property="og:image:width" content="1400" />
+  <meta property="og:image:height" content="977" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Optimisation du coût du capital | Versa Capital" />
+  <meta name="twitter:description" content="Optimisation du coût du capital par Versa Capital : accompagnement transactionnel, achat ou vente d'équipements, offre intégrée avec Versa Équipements." />
+  <meta name="twitter:image" content="https://versa.roymarketing.ca/img/tours-centre-ville-nuit-1400.webp" />
+  <!-- TODO: adresse, ville et zone desservie ne figurent pas sur le site. Les ajouter au JSON-LD (address, areaServed) seulement quand Versa Capital les confirme. -->
+  <!-- TODO: le site est servi sur versa.roymarketing.ca. Si un domaine propre est choisi, mettre à jour le canonical, og:url, le sitemap et ce JSON-LD, puis planifier les redirections 301. Aucun domaine de destination n'est confirmé. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FinancialService",
+        "@id": "https://versa.roymarketing.ca/#organization",
+        "name": "Versa Capital",
+        "url": "https://versa.roymarketing.ca/",
+        "description": "Versa Capital est un cabinet-conseil spécialisé en financement commercial et en financement d’équipements.",
+        "telephone": "+1-833-508-3772",
+        "email": "info@versacapital.ca",
+        "logo": "https://versa.roymarketing.ca/img/logo-navy.png",
+        "sameAs": ["https://versacapital.ca"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://versa.roymarketing.ca/#website",
+        "name": "Versa Capital",
+        "url": "https://versa.roymarketing.ca/",
+        "inLanguage": "fr-CA",
+        "publisher": { "@id": "https://versa.roymarketing.ca/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://versa.roymarketing.ca/optimisation-cout-capital/#webpage",
+        "url": "https://versa.roymarketing.ca/optimisation-cout-capital/",
+        "name": "Optimisation du coût du capital | Versa Capital",
+        "description": "Optimisation du coût du capital par Versa Capital : accompagnement transactionnel, achat ou vente d'équipements, offre intégrée avec Versa Équipements.",
+        "inLanguage": "fr-CA",
+        "isPartOf": { "@id": "https://versa.roymarketing.ca/#website" },
+        "about": { "@id": "https://versa.roymarketing.ca/optimisation-cout-capital/#service" },
+        "breadcrumb": { "@id": "https://versa.roymarketing.ca/optimisation-cout-capital/#breadcrumb" }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://versa.roymarketing.ca/optimisation-cout-capital/#service",
+        "name": "Optimisation du coût du capital",
+        "url": "https://versa.roymarketing.ca/optimisation-cout-capital/",
+        "description": "Accompagnement transactionnel et support lors de l’achat ou de la vente d’équipements, en collaboration avec Versa Équipements.",
+        "provider": { "@id": "https://versa.roymarketing.ca/#organization" },
+        "image": "https://versa.roymarketing.ca/img/tours-centre-ville-nuit-1400.webp"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://versa.roymarketing.ca/optimisation-cout-capital/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Versa Capital", "item": "https://versa.roymarketing.ca/" },
+          { "@type": "ListItem", "position": 2, "name": "Optimisation du coût du capital", "item": "https://versa.roymarketing.ca/optimisation-cout-capital/" }
+        ]
+      }
+    ]
+  }
+  </script>
   <meta name="theme-color" content="#1C4FA0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,7 +90,7 @@
 <header class="hdr" data-hdr>
   <a class="hdr__logo" href="/" aria-label="Versa Capital, accueil">
     <img class="hdr__logo-w" src="%BASE_URL%img/logo-white.png" alt="Versa Capital" width="1250" height="335" />
-    <img class="hdr__logo-n" src="%BASE_URL%img/logo-navy.png" alt="" width="1250" height="335" />
+    <img class="hdr__logo-n" src="%BASE_URL%img/logo-navy.png" alt="" aria-hidden="true" width="1250" height="335" />
   </a>
   <nav class="hdr__nav" aria-label="Navigation principale">
     <a href="/#services">Services</a>
