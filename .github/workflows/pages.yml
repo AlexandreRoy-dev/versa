@@ -1,8 +1,10 @@
-# Publishes the Vite build to GitHub Pages.
+# Publishes the Vite build to the gh-pages branch.
 #
-# The site uses the custom domain versa.roymarketing.ca, which is served
-# from the domain root. vite.config.js sets base to '/'.
-# Pages source must be GitHub Actions (Settings, Pages, Build and deployment).
+# GitHub Pages for this repo is the legacy source (branch gh-pages, path /),
+# custom domain versa.roymarketing.ca. The github-pages environment only
+# allows deployments from gh-pages, so actions/deploy-pages from main is
+# rejected ("Branch main is not allowed to deploy to github-pages").
+# Publishing the dist folder onto gh-pages is what actually updates the site.
 name: Deploy to GitHub Pages
 
 on:
@@ -11,19 +13,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -33,17 +35,21 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish dist to gh-pages
+        run: |
+          set -euo pipefail
+          git fetch origin gh-pages
+          work=$(mktemp -d)
+          git worktree add --detach "$work" origin/gh-pages
+          find "$work" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -a dist/. "$work/"
+          touch "$work/.nojekyll"
+          git -C "$work" config user.name "github-actions[bot]"
+          git -C "$work" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$work" add -A
+          if git -C "$work" diff --cached --quiet; then
+            echo "No site changes to publish"
+            exit 0
+          fi
+          git -C "$work" commit -m "Publish ${GITHUB_SHA}"
+          git -C "$work" push origin HEAD:gh-pages

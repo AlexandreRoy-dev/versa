@@ -28,10 +28,10 @@ $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
 /* Staggered card delays */
 $$('[data-stagger]').forEach((g) => [...g.children].forEach((c, i) => c.style.setProperty('--d', `${i * 110}ms`)));
 
-/* Count-up on 20+ only */
+/* Count-up on the credibility figures */
 function countUp(el) {
   const end = +el.dataset.count; const t0 = performance.now(); const dur = 1400;
-  const step = (now) => { const p = Math.min(1, (now - t0) / dur); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+  const step = (now) => { const p = Math.min(1, (now - t0) / dur); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))).toLocaleString('fr-CA'); if (p < 1) requestAnimationFrame(step); };
   el.textContent = '0'; requestAnimationFrame(step);
 }
 
@@ -42,7 +42,7 @@ if (reduce) {
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (!e.isIntersecting) return;
     e.target.classList.add('is-in');
-    const n = e.target.querySelector('[data-count]'); if (n) countUp(n);
+    e.target.querySelectorAll('[data-count]').forEach(countUp);
     io.unobserve(e.target);
   }), { rootMargin: '0px 0px -8% 0px' });
   $$('.fade').forEach((el) => io.observe(el));
