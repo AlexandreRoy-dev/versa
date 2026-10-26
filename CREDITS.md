@@ -25,7 +25,7 @@ Exportées en 4:3 légères (600 et 1000 px) avec tools/secteurs.py.
 - secteur-construction-chargeuse: "Heavy Machinery in Construction Site with Blue Sky". https://www.pexels.com/photo/heavy-machinery-in-construction-site-with-blue-sky-33321431/
 - secteur-agriculture-tracteur: "Tractor Plowing Field" by Mark Stebnicki. https://www.pexels.com/photo/tractor-plowing-field-2253413/
 - secteur-foresterie-chargeuse-billots: "A Tractor Lifting the Tree Logs" by Mark Stebnicki. https://www.pexels.com/photo/a-tractor-lifting-the-tree-logs-12278582/
-- secteur-medical-irm: "Modern MRI Scanner in Hospital Room" by MART PRODUCTION. https://www.pexels.com/photo/technology-hospital-medicine-indoors-7089017/
+- secteur-medical-irm: "Magnetic Resonance Imaging Machine in the Hospital". https://www.pexels.com/photo/magnetic-resonance-imaging-machine-in-the-hospital-13176450/ (remplace le cadrage précédent, trop peu lisible, de la photo 7089017)
 - secteur-transport-camion: "Kenworth T680 Semi-Trailer Truck Driving Down the Road" by Tom Jackson. https://www.pexels.com/photo/kenworth-t680-semi-trailer-truck-driving-down-the-road-27099095/
 - secteur-manutention-chariot-elevateur: "Forklift in Warehouse" by Léster Lau. https://www.pexels.com/photo/forklift-in-warehouse-17229385/
 - secteur-restauration-cuisine: "Commercial Kitchen with Stainless Steel Equipment". https://www.pexels.com/photo/commercial-kitchen-with-stainless-steel-equipment-28704740/

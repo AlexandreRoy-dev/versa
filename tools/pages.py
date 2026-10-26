@@ -26,7 +26,7 @@ P=[
   title='Financement corporatif et stratégique | Versa Capital',
   meta="Financement corporatif et stratégique par Versa Capital : hypothécaire commercial, fusions et acquisitions, financement privé et alternatif, optimisation de structure financière.",
   lede='Croissance, acquisition, refinancement ou optimisation : une stratégie de financement alignée sur les ambitions de votre entreprise.',
-  desc=['Soutien aux projets de croissance, acquisitions, fonds de roulement, refinancement, consolidation de dettes et optimisation de la structure financière.','Financement hypothécaire commercial : accompagnement pour les projets immobiliers commerciaux et les besoins de financement qui s’inscrivent dans la stratégie globale de l’entreprise.','Fusions, acquisitions et solutions corporatives : conseils pour les décisions structurantes liées à l’achat, à la vente, au transfert ou au développement d’une entreprise.'],
+  desc=['Soutien aux projets de croissance, acquisitions, fonds de roulement, refinancement, consolidation de dettes et optimisation de la structure financière.','Financement hypothécaire commercial : accompagnement pour les projets immobiliers commerciaux et les besoins de financement qui s’inscrivent dans la stratégie globale de l’entreprise.','Fusions, acquisitions et solutions corporatives : conseils pour les décisions structurantes liées à l’achat, à la vente, au transfert ou au développement d’une entreprise.','Site en construction : <a href="https://www.versacorpfinance.com" target="_blank" rel="noopener">www.versacorpfinance.com</a>.'],
   bullets=['Financement hypothécaire commercial','Fusions et acquisitions (M&amp;A)','Financement privé et alternatif','Optimisation de structure financière'],sectors=False),
 ]
 def fix_links(x):
