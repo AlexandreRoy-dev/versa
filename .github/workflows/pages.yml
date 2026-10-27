@@ -5,6 +5,9 @@
 # allows deployments from gh-pages, so actions/deploy-pages from main is
 # rejected ("Branch main is not allowed to deploy to github-pages").
 # Publishing the dist folder onto gh-pages is what actually updates the site.
+# Les pull requests et les autres branches ne publient pas : le déclencheur
+# push est limité à main, et le job refuse toute ref qui n'est pas main
+# (y compris un workflow_dispatch lancé depuis la branche de PR).
 name: Deploy to GitHub Pages
 
 on:
@@ -21,6 +24,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +37,13 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build
+      - name: Build
+        run: npm run build
+        env:
+          # Vide tant que le formulaire Zoho Canada n'existe pas.
+          # Variable de dépôt (Settings > Secrets and variables > Actions > Variables).
+          # https://forms.zohopublic.ca/<portail>/form/<lien>/formperma/<jeton>
+          VITE_RECRUTEMENT_FORM_URL: ${{ vars.VITE_RECRUTEMENT_FORM_URL }}
 
       - name: Publish dist to gh-pages
         run: |
