@@ -121,6 +121,8 @@ h1,h2,h3,p,figure{margin:0}
 .sector__num{position:absolute;left:14px;top:14px;font-family:var(--f-label);font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--white);background:rgba(28,79,160,.92);padding:7px 10px;border-radius:3px}
 .sector__body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:12px;border-top:3px solid var(--royal)}
 .sector__title{font-size:clamp(18px,1.5vw,22px);line-height:1.2;letter-spacing:-.02em;font-weight:500;color:var(--ink)}
+.sector__title a{color:inherit}
+.sector__title a:hover{color:var(--royal)}
 .sector__list{display:flex;flex-direction:column;gap:8px;color:var(--slate);font-size:15px}
 .sector__list li{display:flex;gap:10px;align-items:baseline}
 .sector__list li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--cyan);transform:translateY(-1px)}

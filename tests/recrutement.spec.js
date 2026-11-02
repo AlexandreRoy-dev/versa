@@ -317,7 +317,7 @@ test('la page crédit-bail est reliée et complète', async ({ page }) => {
 });
 
 test('les autres pages restent entières', async ({ page }) => {
-  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/credit-bail/', '/carrieres/'];
+  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/credit-bail/', '/financement-machinerie-lourde/', '/financement-camions-remorques/', '/financement-equipements-agricoles/', '/refinancement-equipements/', '/fonds-de-roulement/', '/carrieres/'];
   for (const path of paths) {
     const errors = [];
     const failed = [];
