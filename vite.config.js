@@ -1,5 +1,15 @@
 import { resolve } from 'path';
-const pages = ['financement-equipements', 'financement-corporatif-strategique', 'credit-bail', 'carrieres'];
+const pages = [
+  'financement-equipements',
+  'financement-corporatif-strategique',
+  'credit-bail',
+  'financement-machinerie-lourde',
+  'financement-camions-remorques',
+  'financement-equipements-agricoles',
+  'refinancement-equipements',
+  'fonds-de-roulement',
+  'carrieres',
+];
 export default {
   base: '/',
   server: { host: '0.0.0.0', port: 5180, strictPort: true },
