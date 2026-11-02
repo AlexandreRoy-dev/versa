@@ -13,7 +13,7 @@ const pdf = {
 };
 
 async function openRecrutement(page) {
-  await page.goto('/recrutement/');
+  await page.goto('/carrieres/');
   await page.waitForFunction(() => window.__ready === true && document.querySelector('[data-recrutement]')?.dataset.script === 'pret');
   await page.locator('[data-recrutement]').evaluate((el) => el.scrollIntoView({ block: 'center' }));
   await page.waitForFunction(() => document.querySelector('[data-recrutement]').classList.contains('is-in'));
@@ -40,16 +40,16 @@ function trackPosts(page) {
   return posts;
 }
 
-test('le menu mène à Recrutement', async ({ page }) => {
+test('le menu mène à Carrières', async ({ page }) => {
   await page.goto('/');
   await page.waitForFunction(() => window.__ready === true);
   const nav = page.getByRole('navigation', { name: 'Navigation principale' });
-  await expect(nav.getByRole('link', { name: 'Recrutement' })).toHaveAttribute('href', '/recrutement/');
-  await expect(page.locator('footer').getByRole('link', { name: 'Recrutement' })).toHaveAttribute('href', '/recrutement/');
+  await expect(nav.getByRole('link', { name: 'Carrières' })).toHaveAttribute('href', '/carrieres/');
+  await expect(page.locator('footer').getByRole('link', { name: 'Carrières' })).toHaveAttribute('href', '/carrieres/');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
-  await nav.getByRole('link', { name: 'Recrutement' }).click();
-  await expect(page).toHaveURL(/\/recrutement\/?$/);
-  await expect(page.getByRole('heading', { level: 1, name: 'Recrutement' })).toBeVisible();
+  await nav.getByRole('link', { name: 'Carrières' }).click();
+  await expect(page).toHaveURL(/\/carrieres\/?$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Carrières' })).toBeVisible();
   const fit = await page.evaluate(() => {
     const hdr = document.querySelector('.hdr').getBoundingClientRect();
     const copy = document.querySelector('.hero__copy').getBoundingClientRect();
@@ -62,10 +62,59 @@ test('le menu mène à Recrutement', async ({ page }) => {
   expect(fit.title).toBe(true);
 });
 
-test('le pied de page des autres pages mène à Recrutement', async ({ page }) => {
+test('le pied de page des autres pages mène à Carrières', async ({ page }) => {
   await page.goto('/financement-equipements/');
-  await page.locator('footer').getByRole('link', { name: 'Recrutement' }).click();
-  await expect(page).toHaveURL(/\/recrutement\/?$/);
+  await page.locator('footer').getByRole('link', { name: 'Carrières' }).click();
+  await expect(page).toHaveURL(/\/carrieres\/?$/);
+});
+
+test('Versa Équipements suit la langue du navigateur', async ({ browser, request }) => {
+  const fr = 'https://www.versaequip.ca/fr/accueil.htm';
+  const en = 'https://www.versaequip.ca/';
+  for (const [locale, attendu] of [['fr-CA', fr], ['en-US', en]]) {
+    const context = await browser.newContext({ locale });
+    const page = await context.newPage();
+    await page.goto('/');
+    await page.waitForFunction(() => window.__ready === true);
+    const hrefs = await page.locator('a[data-versaequip]').evaluateAll((els) => els.map((a) => a.href));
+    expect(hrefs.length).toBeGreaterThan(0);
+    expect(hrefs).toEqual(hrefs.map(() => attendu));
+    const langue = await page.evaluate(() => navigator.language);
+    expect(langue.toLowerCase().startsWith(locale.slice(0, 2).toLowerCase())).toBe(true);
+    await context.close();
+  }
+
+  const html = await (await request.get('/')).text();
+  const tags = html.match(/<a\b[^>]*\bdata-versaequip\b[^>]*>/g) || [];
+  expect(tags.length).toBeGreaterThan(0);
+  for (const tag of tags) expect(tag.match(/href="([^"]+)"/)?.[1]).toBe(fr);
+});
+
+test('Versa Équipements est sous le financement corporatif', async ({ page }) => {
+  await page.goto('/?static');
+  await page.waitForFunction(() => window.__ready === true);
+  const titres = await page.locator('#produits .svc__title').allTextContents();
+  expect(titres.map((t) => t.trim())).toEqual([
+    'Financement d’équipements',
+    'Financement corporatif et stratégique',
+    'Vente et achat d’équipements',
+  ]);
+  const tops = await page.locator('#produits .svc').evaluateAll((els) => els.map((el) => el.getBoundingClientRect().top));
+  expect(tops[2]).toBeGreaterThan(tops[1]);
+  await expect(page.locator('.svc--ligne')).toContainText('Versa Équipements accompagne la vente');
+  await expect(page.locator('.svc--ligne a[data-versaequip]')).toBeVisible();
+});
+
+test('l’adresse recrutement redirige vers carrières', async ({ page }) => {
+  const res = await page.request.get('/recrutement/');
+  expect(res.ok()).toBe(true);
+  const html = await res.text();
+  expect(html).toContain('noindex');
+  expect(html).toContain('https://versa.roymarketing.ca/carrieres/');
+  expect(html).toContain('url=/carrieres/');
+  await page.goto('/recrutement/');
+  await page.waitForURL(/\/carrieres\/?$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Carrières' })).toBeVisible();
 });
 
 test('capture de la page', async ({ page }, testInfo) => {
@@ -81,7 +130,7 @@ test('capture de la page', async ({ page }, testInfo) => {
   });
   await page.waitForFunction(() => [...document.images].every((img) => img.complete && img.naturalWidth > 0));
   mkdirSync('/opt/cursor/artifacts', { recursive: true });
-  const file = testInfo.project.name === 'telephone' ? 'recrutement-telephone.png' : 'recrutement-ordi.png';
+  const file = testInfo.project.name === 'telephone' ? 'carrieres-telephone.png' : 'carrieres-ordi.png';
   await page.screenshot({ path: `/opt/cursor/artifacts/${file}`, fullPage: true });
 });
 
@@ -157,7 +206,7 @@ test('le consentement est obligatoire', async ({ page }) => {
   await expect(page.locator('[data-status]')).toBeHidden();
   await page.waitForTimeout(300);
   expect(posts).toEqual([]);
-  await expect(page).toHaveURL(/\/recrutement\/?$/);
+  await expect(page).toHaveURL(/\/carrieres\/?$/);
 });
 
 test('sans URL Zoho, le message neutre s’affiche et rien n’est envoyé', async ({ page }) => {
@@ -172,7 +221,7 @@ test('sans URL Zoho, le message neutre s’affiche et rien n’est envoyé', asy
   await expect(page.locator('[data-error="cv"]')).toBeHidden();
   await page.waitForTimeout(300);
   expect(posts).toEqual([]);
-  await expect(page).toHaveURL(/\/recrutement\/?$/);
+  await expect(page).toHaveURL(/\/carrieres\/?$/);
 });
 
 test('un CV doc ou docx de taille valide passe la validation', async ({ page }, testInfo) => {
@@ -230,7 +279,7 @@ test('le pot de miel bloque l’envoi', async ({ page }) => {
 });
 
 test('les autres pages restent entières', async ({ page }) => {
-  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/recrutement/'];
+  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/carrieres/'];
   for (const path of paths) {
     const errors = [];
     const failed = [];
@@ -287,7 +336,7 @@ test('les autres pages restent entières', async ({ page }) => {
 test('largeur intermédiaire sans débordement', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'ordi', 'viewport ordi');
   await page.setViewportSize({ width: 1280, height: 800 });
-  for (const path of ['/', '/recrutement/']) {
+  for (const path of ['/', '/carrieres/']) {
     await page.goto(path);
     await page.waitForFunction(() => window.__ready === true);
     const fit = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);

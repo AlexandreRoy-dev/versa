@@ -1,6 +1,8 @@
-# Recrutement : brancher Zoho Forms (Canada)
+# Carrières : brancher Zoho Forms (Canada)
 
-La page `/recrutement/` valide la candidature dans le navigateur, puis envoie un `POST` `multipart/form-data` directement à Zoho Forms. Aucun serveur de Versa ne relaie les données. Tant que l’URL n’est pas configurée, le formulaire s’affiche, valide, et affiche « Le dépôt de candidatures sera ouvert sous peu. » Il n’envoie rien.
+La page publique est `/carrieres/`. L’adresse `/recrutement/` reste en place : elle ne s’indexe pas et redirige vers `/carrieres/` (rafraîchissement meta et lien canonique), sur le même modèle que `public/optimisation-cout-capital`.
+
+La page `/carrieres/` valide la candidature dans le navigateur, puis envoie un `POST` `multipart/form-data` directement à Zoho Forms. Aucun serveur de Versa ne relaie les données. Tant que l’URL n’est pas configurée, le formulaire s’affiche, valide, et affiche « Le dépôt de candidatures sera ouvert sous peu. » Il n’envoie rien. La variable d’environnement reste `VITE_RECRUTEMENT_FORM_URL`.
 
 ## Choix d’intégration
 
@@ -81,7 +83,7 @@ Après avoir enregistré le formulaire : Share, Embed, HTML and CSS, Generate Co
 - chaque attribut `name`
 - l’attribut `value` de la case
 
-Si Zoho a mis une autre valeur que `ConsentementLoi25` sur la case, remplacez seulement `value` dans `recrutement/index.html` par celle du HTML téléchargé. Ne changez pas le `name`.
+Si Zoho a mis une autre valeur que `ConsentementLoi25` sur la case, remplacez seulement `value` dans `carrieres/index.html` par celle du HTML téléchargé. Ne changez pas le `name`.
 
 ### Ce qu’il ne faut pas activer
 
@@ -175,7 +177,7 @@ La politique actuelle nomme Frédéric Parent, `fparent@capital.ca`, 101-110 rue
 ```text
 Candidatures
 
-Versa Capital recueille des candidatures spontanées au moyen du formulaire Recrutement, afin d’évaluer la candidature et de l’ajouter à une banque de candidatures.
+Versa Capital recueille des candidatures spontanées au moyen du formulaire Carrières, afin d’évaluer la candidature et de l’ajouter à une banque de candidatures.
 
 Renseignements recueillis : prénom, nom, courriel, numéro de téléphone si la personne le fournit, poste visé si elle le fournit, message si elle le fournit, et curriculum vitae (PDF, DOC ou DOCX).
 

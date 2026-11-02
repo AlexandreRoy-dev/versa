@@ -6,6 +6,11 @@ root.classList.add(reduce ? 'no-motion' : 'motion');
 const $ = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
+/* versaequip.ca : français par défaut (sans JS). Anglais si navigator.language commence par en. */
+if ((navigator.language || '').toLowerCase().startsWith('en')) {
+  $$('a[data-versaequip]').forEach((a) => { a.href = 'https://www.versaequip.ca/'; });
+}
+
 const hdr = $('[data-hdr]');
 let lastY = 0;
 function updateHeader() {
