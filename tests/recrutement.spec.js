@@ -278,8 +278,46 @@ test('le pot de miel bloque l’envoi', async ({ page }) => {
   expect(posts).toEqual([]);
 });
 
+test('la page crédit-bail est reliée et complète', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForFunction(() => window.__ready === true);
+  const liste = page.locator('#produits .prods');
+  await expect(liste.getByRole('link', { name: /Crédit-bail \(location-acquisition\)/ })).toHaveAttribute('href', '/credit-bail/');
+  await expect(liste.getByRole('link', { name: /Crédit-bail \(location-exploitation, sans garantie de rachat\)/ })).toHaveAttribute('href', '/credit-bail/');
+  await expect(page.locator('footer').getByRole('link', { name: 'Crédit-bail', exact: true })).toHaveAttribute('href', '/credit-bail/');
+
+  await page.goto('/financement-equipements/?static');
+  await page.waitForFunction(() => window.__ready === true);
+  await expect(page.locator('.page-desc a[href="/credit-bail/"]')).toBeVisible();
+  await expect(page.locator('.related').getByRole('link', { name: /Crédit-bail/ })).toHaveAttribute('href', '/credit-bail/');
+
+  await page.goto('/credit-bail/?static');
+  await page.waitForFunction(() => window.__ready === true);
+  await expect(page).toHaveTitle('Crédit-bail pour entreprises au Québec | Versa Capital');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://versa.roymarketing.ca/credit-bail/');
+  await expect(page.getByRole('heading', { level: 1, name: 'Crédit-bail' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 3, name: 'Location-acquisition', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 3, name: 'Location-exploitation, sans garantie de rachat', exact: true })).toBeVisible();
+  await expect(page.locator('#contact form')).toBeVisible();
+  const href = await page.locator('a[data-versaequip]').first().getAttribute('href');
+  const langue = await page.evaluate(() => (navigator.language || '').toLowerCase());
+  expect(href).toBe(langue.startsWith('en') ? 'https://www.versaequip.ca/' : 'https://www.versaequip.ca/fr/accueil.htm');
+  const html = await (await page.request.get('/credit-bail/')).text();
+  expect(html).toContain('href="https://www.versaequip.ca/fr/accueil.htm"');
+  const visible = await page.locator('main').innerText();
+  expect(visible).not.toMatch(/[—–]/);
+  const data = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(data['@type']).toBe('FAQPage');
+  const questions = (await page.locator('.faq__q').allTextContents()).map((t) => t.trim());
+  const answers = (await page.locator('.faq__a').allTextContents()).map((t) => t.trim());
+  expect(data.mainEntity.map((item) => item.name)).toEqual(questions);
+  expect(data.mainEntity.map((item) => item.acceptedAnswer.text)).toEqual(answers);
+  const fit = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
+  expect(fit).toBe(true);
+});
+
 test('les autres pages restent entières', async ({ page }) => {
-  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/carrieres/'];
+  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/credit-bail/', '/carrieres/'];
   for (const path of paths) {
     const errors = [];
     const failed = [];
