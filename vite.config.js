@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-const pages = ['financement-equipements', 'financement-corporatif-strategique', 'carrieres'];
+const pages = ['financement-equipements', 'financement-corporatif-strategique', 'credit-bail', 'carrieres'];
 export default {
   base: '/',
   server: { host: '0.0.0.0', port: 5180, strictPort: true },
