@@ -59,6 +59,70 @@ export const pagesConnexes = {
     description: 'Versa Équipements',
     external: true,
   },
+  'en-equipment-financing': {
+    href: '/en/equipment-financing/',
+    kicker: 'Service',
+    title: 'Equipment financing',
+    description: 'Leasing, loans and rentals for business equipment.',
+    locale: 'en',
+  },
+  'en-leasing': {
+    href: '/en/leasing/',
+    kicker: 'Product',
+    title: 'Leasing',
+    description: 'Capital lease or operating lease, with no purchase guarantee.',
+    locale: 'en',
+  },
+  'en-heavy-machinery-financing': {
+    href: '/en/heavy-machinery-financing/',
+    kicker: 'Sector',
+    title: 'Heavy machinery',
+    description: 'Construction, excavation and forestry equipment.',
+    locale: 'en',
+  },
+  'en-trucks-trailers-financing': {
+    href: '/en/trucks-trailers-financing/',
+    kicker: 'Sector',
+    title: 'Trucks and trailers',
+    description: 'Transportation equipment: trucks and trailers.',
+    locale: 'en',
+  },
+  'en-agricultural-equipment-financing': {
+    href: '/en/agricultural-equipment-financing/',
+    kicker: 'Sector',
+    title: 'Agricultural equipment',
+    description: 'Equipment for the agriculture sector.',
+    locale: 'en',
+  },
+  'en-equipment-refinancing': {
+    href: '/en/equipment-refinancing/',
+    kicker: 'Product',
+    title: 'Equipment refinancing',
+    description: 'Sale-leaseback or renewal of a file already in place.',
+    locale: 'en',
+  },
+  'en-working-capital': {
+    href: '/en/working-capital/',
+    kicker: 'Product',
+    title: 'Working capital',
+    description: 'A loan for operations, separate from financing an asset.',
+    locale: 'en',
+  },
+  'en-corporate-strategic-financing': {
+    href: '/en/corporate-strategic-financing/',
+    kicker: 'Service',
+    title: 'Corporate and strategic financing',
+    description: 'Growth, acquisitions and financial structure.',
+    locale: 'en',
+  },
+  'versaequip-en': {
+    href: 'https://www.versaequip.ca/',
+    kicker: 'New product line',
+    title: 'Equipment sales and purchases',
+    description: 'Versa Équipements',
+    external: true,
+    locale: 'en',
+  },
 };
 
 export const liensParPage = {
@@ -67,6 +131,14 @@ export const liensParPage = {
   'financement-equipements-agricoles': ['financement-equipements', 'credit-bail', 'financement-machinerie-lourde', 'versaequip'],
   'refinancement-equipements': ['financement-equipements', 'credit-bail', 'fonds-de-roulement', 'versaequip'],
   'fonds-de-roulement': ['financement-corporatif-strategique', 'financement-equipements', 'refinancement-equipements', 'versaequip'],
+  'en/heavy-machinery-financing': ['en-equipment-financing', 'en-leasing', 'en-equipment-refinancing', 'versaequip-en'],
+  'en/trucks-trailers-financing': ['en-equipment-financing', 'en-leasing', 'en-equipment-refinancing', 'versaequip-en'],
+  'en/agricultural-equipment-financing': ['en-equipment-financing', 'en-leasing', 'en-heavy-machinery-financing', 'versaequip-en'],
+  'en/equipment-refinancing': ['en-equipment-financing', 'en-leasing', 'en-working-capital', 'versaequip-en'],
+  'en/working-capital': ['en-corporate-strategic-financing', 'en-equipment-financing', 'en-equipment-refinancing', 'versaequip-en'],
+  'en/equipment-financing': ['en-leasing', 'en-heavy-machinery-financing', 'en-trucks-trailers-financing', 'en-agricultural-equipment-financing', 'en-equipment-refinancing', 'en-corporate-strategic-financing', 'versaequip-en'],
+  'en/leasing': ['en-equipment-financing', 'en-corporate-strategic-financing', 'versaequip-en'],
+  'en/corporate-strategic-financing': ['en-equipment-financing', 'en-leasing', 'en-working-capital', 'versaequip-en'],
 };
 
 export function carteConnexe(cle) {
@@ -84,7 +156,8 @@ export function carteConnexe(cle) {
 export function htmlCarte(cle) {
   const page = carteConnexe(cle);
   if (page.external) {
-    return `<a class="rel fade" data-versaequip href="${page.href}" target="_blank" rel="noopener" aria-label="${page.title}, ${page.description}, www.versaequip.ca (nouvel onglet)"><span class="rel__k">${page.kicker}</span><span class="rel__n">${page.title}</span><span class="rel__meta">${page.description}</span><span class="svc__arrow" aria-hidden="true"></span></a>`;
+    const onglet = page.locale === 'en' ? 'new tab' : 'nouvel onglet';
+    return `<a class="rel fade" data-versaequip href="${page.href}" target="_blank" rel="noopener" aria-label="${page.title}, ${page.description}, www.versaequip.ca (${onglet})"><span class="rel__k">${page.kicker}</span><span class="rel__n">${page.title}</span><span class="rel__meta">${page.description}</span><span class="svc__arrow" aria-hidden="true"></span></a>`;
   }
   return `<a class="rel fade" href="${page.href}"><span class="rel__k">${page.kicker}</span><span class="rel__n">${page.title}</span><span class="rel__meta">${page.description}</span><span class="svc__arrow" aria-hidden="true"></span></a>`;
 }

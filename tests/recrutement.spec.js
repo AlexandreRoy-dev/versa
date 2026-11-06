@@ -317,7 +317,7 @@ test('la page crédit-bail est reliée et complète', async ({ page }) => {
 });
 
 test('les autres pages restent entières', async ({ page }) => {
-  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/credit-bail/', '/financement-machinerie-lourde/', '/financement-camions-remorques/', '/financement-equipements-agricoles/', '/refinancement-equipements/', '/fonds-de-roulement/', '/carrieres/'];
+  const paths = ['/', '/financement-equipements/', '/financement-corporatif-strategique/', '/credit-bail/', '/financement-machinerie-lourde/', '/financement-camions-remorques/', '/financement-equipements-agricoles/', '/refinancement-equipements/', '/fonds-de-roulement/', '/carrieres/', '/en/', '/en/equipment-financing/', '/en/corporate-strategic-financing/', '/en/leasing/', '/en/careers/', '/en/heavy-machinery-financing/', '/en/trucks-trailers-financing/', '/en/agricultural-equipment-financing/', '/en/equipment-refinancing/', '/en/working-capital/'];
   for (const path of paths) {
     const errors = [];
     const failed = [];

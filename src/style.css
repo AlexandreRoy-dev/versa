@@ -506,6 +506,11 @@ main>.services{border-radius:28px 28px 0 0;margin-top:-28px;box-shadow:0 -24px 5
 }
 
 .hdr__nav a[aria-current="page"]::after{transform:scaleX(1);transform-origin:left}
+.hdr__nav .lang{display:inline-flex;align-items:center;gap:8px;margin-left:8px;flex:none}
+.hdr__nav .lang a{font-family:var(--f-label);font-weight:600;letter-spacing:.14em;font-size:12px;opacity:.72}
+.hdr__nav .lang a[aria-current="page"]{opacity:1}
+.hdr__nav .lang a::after{display:none}
+.hdr__nav .lang a+a::before{content:"|";margin-right:8px;opacity:.55;font-weight:400;letter-spacing:0}
 .cta__wrap--top{align-items:start}
 .form__note{margin:0;font-size:13px;line-height:1.45;font-weight:400;color:var(--slate)}
 .field__tag{font-weight:400;color:var(--slate)}
