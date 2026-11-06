@@ -41,6 +41,13 @@ function assertBuild(contains = []) {
   for (const needle of contains) {
     if (!blob.includes(needle)) throw new Error(`Build sans ${needle}`);
   }
+  for (const path of files) {
+    if (!path.endsWith('.html')) continue;
+    const html = readFileSync(path, 'utf8');
+    if (/href="[^"]*undefined/.test(html) || />undefined</.test(html)) {
+      throw new Error(`« undefined » dans ${path}`);
+    }
+  }
   return blob;
 }
 
