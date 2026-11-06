@@ -10,7 +10,7 @@ const CV_MIME = {
   docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
 };
 
-const MSG = {
+const MSG_FR = {
   prenom: 'Entrez votre prénom.',
   nom: 'Entrez votre nom.',
   courrielVide: 'Entrez votre courriel.',
@@ -24,6 +24,23 @@ const MSG = {
   ferme: 'Le dépôt de candidatures sera ouvert sous peu.',
   merci: 'Merci. Nous avons bien reçu votre envoi.',
 };
+
+const MSG_EN = {
+  prenom: 'Enter your first name.',
+  nom: 'Enter your last name.',
+  courrielVide: 'Enter your email.',
+  courriel: 'Enter a valid email.',
+  telephone: 'Enter a North American phone number, for example 514 555-0134.',
+  cv: 'Attach your resume.',
+  cvType: 'The resume must be a PDF, DOC or DOCX file.',
+  cvVide: 'The resume file is empty.',
+  cvTaille: 'The resume must be 5 MB or less.',
+  consentement: 'Check the box to consent to the collection of your information.',
+  ferme: 'Applications will open shortly.',
+  merci: 'Thank you. We have received your submission.',
+};
+
+const MSG = (document.documentElement.lang || '').toLowerCase().startsWith('en') ? MSG_EN : MSG_FR;
 
 const form = document.querySelector('[data-recrutement]');
 

@@ -36,7 +36,8 @@ $$('[data-stagger]').forEach((g) => [...g.children].forEach((c, i) => c.style.se
 /* Count-up on the credibility figures */
 function countUp(el) {
   const end = +el.dataset.count; const t0 = performance.now(); const dur = 1400;
-  const step = (now) => { const p = Math.min(1, (now - t0) / dur); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))).toLocaleString('fr-CA'); if (p < 1) requestAnimationFrame(step); };
+  const locale = (document.documentElement.lang || 'fr-CA').toLowerCase().startsWith('en') ? 'en-CA' : 'fr-CA';
+  const step = (now) => { const p = Math.min(1, (now - t0) / dur); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))).toLocaleString(locale); if (p < 1) requestAnimationFrame(step); };
   el.textContent = '0'; requestAnimationFrame(step);
 }
 
